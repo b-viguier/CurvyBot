@@ -12,9 +12,11 @@ TARGET = CurvyBot
 TEMPLATE = app
 
 
-SOURCES += main.cpp\
-        MainWidget.cpp
+SOURCES += main.cpp \
+    MainWindow.cpp
 
-HEADERS  += MainWidget.h
+HEADERS  += \
+    MainWindow.h
 
-FORMS    += MainWidget.ui
+FORMS    += \
+    MainWindow.ui
