@@ -1,9 +1,11 @@
 #include "ServerDockWidget.h"
 #include "ui_ServerDockWidget.h"
+#include <QWebSocket>
 
-ServerDockWidget::ServerDockWidget(QWidget *parent) :
+ServerDockWidget::ServerDockWidget(QWebSocket& socket, QWidget *parent) :
     QDockWidget(parent),
-    ui(new Ui::ServerDockWidget)
+    ui(new Ui::ServerDockWidget),
+    _socket(socket)
 {
     ui->setupUi(this);
     connect(

@@ -2,7 +2,8 @@
 #define SERVERDOCKWIDGET_H
 
 #include <QDockWidget>
-#include <QWebSocket>
+
+class QWebSocket;
 
 namespace Ui {
 class ServerDockWidget;
@@ -13,7 +14,7 @@ class ServerDockWidget : public QDockWidget
     Q_OBJECT
 
 public:
-    explicit ServerDockWidget(QWidget *parent = 0);
+    explicit ServerDockWidget(QWebSocket& _socket, QWidget *parent = 0);
     ~ServerDockWidget();
 
     QWebSocket& socket();
@@ -27,7 +28,7 @@ private slots:
 private:
     Ui::ServerDockWidget *ui;
 
-    QWebSocket _socket;
+    QWebSocket &_socket;
 };
 
 #endif // SERVERDOCKWIDGET_H

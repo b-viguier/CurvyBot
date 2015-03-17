@@ -11,16 +11,19 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = CurvyBot
 TEMPLATE = app
 
+QMAKE_CXXFLAGS += -std=c++11
 
 SOURCES += main.cpp \
     MainWindow.cpp \
     SocketLogDockWidget.cpp \
-    ServerDockWidget.cpp
+    ServerDockWidget.cpp \
+    CurvytronSocket.cpp
 
 HEADERS  += \
     MainWindow.h \
     SocketLogDockWidget.h \
-    ServerDockWidget.h
+    ServerDockWidget.h \
+    CurvytronSocket.h
 
 FORMS    += \
     MainWindow.ui \
