@@ -13,6 +13,8 @@ public:
     explicit CurvytronSocket(QWebSocket& socket);
     ~CurvytronSocket();
 
+    QWebSocket &socket() const;
+
 signals:
     void messageReceived(const QString& type, const QJsonValue& data);
 
