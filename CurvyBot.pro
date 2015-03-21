@@ -20,9 +20,9 @@ SOURCES += main.cpp \
     CurvytronSocket.cpp \
     RoomsDockWidget.cpp \
     Events/AbstractEvent.cpp \
-    Events/UnknownEvent.cpp \
     Events/RoomOpenEvent.cpp \
-    Events/RoomFetchEvent.cpp
+    Events/RoomFetchEvent.cpp \
+    Events/RawEvent.cpp
 
 HEADERS  += \
     MainWindow.h \
@@ -35,9 +35,9 @@ HEADERS  += \
     Events/AbstractEventCommand.h \
     Events/AbstractEventDispatcher.h \
     Events/EventCommand.h \
-    Events/UnknownEvent.h \
     Events/RoomOpenEvent.h \
-    Events/RoomFetchEvent.h
+    Events/RoomFetchEvent.h \
+    Events/RawEvent.h
 
 FORMS    += \
     MainWindow.ui \

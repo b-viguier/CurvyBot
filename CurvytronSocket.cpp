@@ -1,5 +1,5 @@
 #include "CurvytronSocket.h"
-#include "Events/UnknownEvent.h"
+#include "Events/RawEvent.h"
 #include <QWebSocket>
 #include <QJsonDocument>
 #include <QJsonArray>
@@ -57,7 +57,7 @@ void CurvytronSocket::onSocketMessageReceived(const QString &message)
             dispatcher->second->dispatch(event_data);
             //TODO: emit generic event
         } else {
-            emit eventReceived(UnknownEvent(event_id, event_data));
+            emit eventReceived(RawEvent(event_id, event_data));
         }
     }
 }
