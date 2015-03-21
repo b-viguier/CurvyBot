@@ -34,6 +34,9 @@ public:
         dispatcher->addCommand(new EventCommand<Event,Listener>(listener, function));
     }
 
+public slots:
+    void sendEvent(const AbstractEvent& event);
+
 signals:
     void eventReceived(const AbstractEvent& event);
 

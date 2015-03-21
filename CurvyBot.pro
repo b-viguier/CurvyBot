@@ -21,7 +21,8 @@ SOURCES += main.cpp \
     RoomsDockWidget.cpp \
     Events/AbstractEvent.cpp \
     Events/UnknownEvent.cpp \
-    Events/RoomOpenEvent.cpp
+    Events/RoomOpenEvent.cpp \
+    Events/RoomFetchEvent.cpp
 
 HEADERS  += \
     MainWindow.h \
@@ -35,7 +36,8 @@ HEADERS  += \
     Events/AbstractEventDispatcher.h \
     Events/EventCommand.h \
     Events/UnknownEvent.h \
-    Events/RoomOpenEvent.h
+    Events/RoomOpenEvent.h \
+    Events/RoomFetchEvent.h
 
 FORMS    += \
     MainWindow.ui \

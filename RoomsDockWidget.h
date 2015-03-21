@@ -21,6 +21,7 @@ public:
 
 private slots:
     void onRoomOpen(const RoomOpenEvent& event);
+    void onSocketConnected();
 
 private:
     Ui::RoomsDockWidget *ui;

@@ -16,12 +16,9 @@ AbstractEvent::~AbstractEvent()
 
 }
 
-QJsonArray AbstractEvent::message() const
+QJsonValue AbstractEvent::data() const
 {
-    return QJsonArray{
-        id(),
-        _data,
-    };
+    return _data;
 }
 
 QString AbstractEvent::toString() const

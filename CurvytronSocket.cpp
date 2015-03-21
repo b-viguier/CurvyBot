@@ -29,6 +29,15 @@ QWebSocket &CurvytronSocket::socket() const
     return _socket;
 }
 
+void CurvytronSocket::sendEvent(const AbstractEvent &event)
+{
+    _socket.sendTextMessage(
+        QString(QJsonDocument(
+            QJsonArray{QJsonArray{event_prefix + event.id(), event.data()}}
+        ).toJson(QJsonDocument::Compact))
+    );
+}
+
 void CurvytronSocket::onSocketMessageReceived(const QString &message)
 {
     auto json_doc = QJsonDocument::fromJson(message.toUtf8());

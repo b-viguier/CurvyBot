@@ -4,7 +4,6 @@
 #include <QJsonValue>
 
 class QString;
-class QJsonArray;
 
 class AbstractEvent
 {
@@ -12,7 +11,7 @@ public:
     AbstractEvent(const QJsonValue& data = QJsonValue());
     virtual ~AbstractEvent();
 
-    QJsonArray message() const;
+    QJsonValue data() const;
     QString toString() const;
 
     virtual QString id() const = 0;
