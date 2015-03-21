@@ -17,15 +17,28 @@ SOURCES += main.cpp \
     MainWindow.cpp \
     SocketLogDockWidget.cpp \
     ServerDockWidget.cpp \
-    CurvytronSocket.cpp
+    CurvytronSocket.cpp \
+    RoomsDockWidget.cpp \
+    Events/AbstractEvent.cpp \
+    Events/UnknownEvent.cpp \
+    Events/RoomOpenEvent.cpp
 
 HEADERS  += \
     MainWindow.h \
     SocketLogDockWidget.h \
     ServerDockWidget.h \
-    CurvytronSocket.h
+    CurvytronSocket.h \
+    RoomsDockWidget.h \
+    Events/AbstractEvent.h \
+    Events/EventDispatcher.h \
+    Events/AbstractEventCommand.h \
+    Events/AbstractEventDispatcher.h \
+    Events/EventCommand.h \
+    Events/UnknownEvent.h \
+    Events/RoomOpenEvent.h
 
 FORMS    += \
     MainWindow.ui \
     SocketLogDockWidget.ui \
-    ServerDockWidget.ui
+    ServerDockWidget.ui \
+    RoomsDockWidget.ui

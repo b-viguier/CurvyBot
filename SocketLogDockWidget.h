@@ -5,6 +5,7 @@
 
 class CurvytronSocket;
 class QJsonArray;
+class AbstractEvent;
 
 namespace Ui {
 class SocketLogDockWidget;
@@ -19,7 +20,7 @@ public:
     ~SocketLogDockWidget();
 
 private slots:
-    void onMessageReceived(const QString&, const QJsonValue&);
+    void onEventReceived(const AbstractEvent&);
 
 private:
     Ui::SocketLogDockWidget *ui;

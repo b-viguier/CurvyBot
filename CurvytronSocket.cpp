@@ -1,4 +1,5 @@
 #include "CurvytronSocket.h"
+#include "Events/UnknownEvent.h"
 #include <QWebSocket>
 #include <QJsonDocument>
 #include <QJsonArray>
@@ -28,39 +29,27 @@ QWebSocket &CurvytronSocket::socket() const
     return _socket;
 }
 
-void CurvytronSocket::sendMessage(const QString &type, const QJsonValue &data)
-{
-    QJsonArray json_message{event_prefix + type, data};
-    json_message = {json_message};
-    _socket.sendTextMessage(
-        QJsonDocument(json_message).toJson()
-    );
-
-}
-
 void CurvytronSocket::onSocketMessageReceived(const QString &message)
 {
     auto json_doc = QJsonDocument::fromJson(message.toUtf8());
-    if(!json_doc.isArray()) {
-        emit messageReceived("GlobalError", message);
-    }
+    Q_ASSERT(json_doc.isArray());
     for(auto msg : json_doc.array()) {
-        if( ! msg.isArray()) {
-            emit messageReceived("EventError", msg);
-            break;
-        }
+        Q_ASSERT(msg.isArray());
         auto json_array = msg.toArray();
-        if(json_array.size() != 2
-            || !json_array.first().isString()
-            || !json_array.first().toString().startsWith(event_prefix)
-        ) {
-            emit messageReceived("TypeError", json_array);
-            break;
-        }
-        emit messageReceived(
-            json_array.first().toString().mid(event_prefix.size()),
-            json_array.last()
+        Q_ASSERT(json_array.size() == 2
+            && json_array.first().isString()
+            && json_array.first().toString().startsWith(event_prefix)
         );
+        const QString event_id = json_array.first().toString().mid(event_prefix.size());
+        const QJsonValue event_data = json_array.last();
+
+        auto dispatcher = _dispatchers.find(event_id.toStdString());
+        if(dispatcher != _dispatchers.end()) {
+            dispatcher->second->dispatch(event_data);
+            //TODO: emit generic event
+        } else {
+            emit eventReceived(UnknownEvent(event_id, event_data));
+        }
     }
 }
 

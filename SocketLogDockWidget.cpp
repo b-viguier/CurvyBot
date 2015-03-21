@@ -1,6 +1,7 @@
 #include "SocketLogDockWidget.h"
 #include "ui_SocketLogDockWidget.h"
 #include "CurvytronSocket.h"
+#include "Events/AbstractEvent.h"
 #include <QTime>
 #include <QJsonDocument>
 #include <QJsonArray>
@@ -13,8 +14,8 @@ SocketLogDockWidget::SocketLogDockWidget(CurvytronSocket& socket, QWidget *paren
 {
     ui->setupUi(this);
     connect(
-        &_socket, &CurvytronSocket::messageReceived,
-        this, &SocketLogDockWidget::onMessageReceived
+        &_socket, &CurvytronSocket::eventReceived,
+        this, &SocketLogDockWidget::onEventReceived
     );
 }
 
@@ -23,22 +24,10 @@ SocketLogDockWidget::~SocketLogDockWidget()
     delete ui;
 }
 
-void SocketLogDockWidget::onMessageReceived(const QString &type, const QJsonValue& data)
+void SocketLogDockWidget::onEventReceived(const AbstractEvent &event)
 {
-    QJsonDocument json;
-    switch(data.type()) {
-        case QJsonValue::Array:
-            json = QJsonDocument(data.toArray());
-            break;
-        case QJsonValue::Object:
-            json = QJsonDocument(data.toObject());
-            break;
-        default:
-            json = QJsonDocument(QJsonArray{data});
-    }
-
     ui->tableWidget->insertRow(0);
     ui->tableWidget->setItem(0, 0, new QTableWidgetItem(QTime::currentTime().toString()));
-    ui->tableWidget->setItem(0, 1, new QTableWidgetItem(type));
-    ui->tableWidget->setItem(0, 2, new QTableWidgetItem(QString(json.toJson(QJsonDocument::Compact))));
+    ui->tableWidget->setItem(0, 1, new QTableWidgetItem(event.id()));
+    ui->tableWidget->setItem(0, 2, new QTableWidgetItem(event.toString()));
 }
