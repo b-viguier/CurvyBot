@@ -36,6 +36,7 @@ void CurvytronSocket::sendEvent(const AbstractEvent &event)
             QJsonArray{QJsonArray{event_prefix + event.id(), event.data()}}
         ).toJson(QJsonDocument::Compact))
     );
+    emit eventSent(event);
 }
 
 void CurvytronSocket::onSocketMessageReceived(const QString &message)
@@ -51,13 +52,14 @@ void CurvytronSocket::onSocketMessageReceived(const QString &message)
         );
         const QString event_id = json_array.first().toString().mid(event_prefix.size());
         const QJsonValue event_data = json_array.last();
+        const RawEvent raw_event(event_id, event_data);
 
         auto dispatcher = _dispatchers.find(event_id.toStdString());
         if(dispatcher != _dispatchers.end()) {
             dispatcher->second->dispatch(event_data);
-            //TODO: emit generic event
+            emit eventDispatched(raw_event);
         } else {
-            emit eventReceived(RawEvent(event_id, event_data));
+            emit eventIgnored(raw_event);
         }
     }
 }

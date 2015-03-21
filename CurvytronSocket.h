@@ -38,7 +38,9 @@ public slots:
     void sendEvent(const AbstractEvent& event);
 
 signals:
-    void eventReceived(const AbstractEvent& event);
+    void eventIgnored(const AbstractEvent& event);
+    void eventDispatched(const AbstractEvent& event);
+    void eventSent(const AbstractEvent& event);
 
 private slots:
     void onSocketMessageReceived(const QString&);

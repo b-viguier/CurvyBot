@@ -20,9 +20,13 @@ public:
     ~SocketLogDockWidget();
 
 private slots:
-    void onEventReceived(const AbstractEvent&);
+    void onEventDispatched(const AbstractEvent&);
+    void onEventIgnored(const AbstractEvent&);
+    void onEventSent(const AbstractEvent&);
 
 private:
+    void logMessage(const QString& text, const Qt::GlobalColor& color);
+
     Ui::SocketLogDockWidget *ui;
     CurvytronSocket& _socket;
 };
