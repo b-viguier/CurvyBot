@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
     auto rooms = new RoomsDockWidget(c_socket, &w);
 
     w.addDockWidget(Qt::RightDockWidgetArea, server);
-    w.addDockWidget(Qt::RightDockWidgetArea, log);
+    w.addDockWidget(Qt::BottomDockWidgetArea, log);
     w.addDockWidget(Qt::LeftDockWidgetArea, rooms);
 
     w.show();

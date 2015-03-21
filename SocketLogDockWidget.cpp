@@ -26,8 +26,8 @@ SocketLogDockWidget::~SocketLogDockWidget()
 
 void SocketLogDockWidget::onEventReceived(const AbstractEvent &event)
 {
-    ui->tableWidget->insertRow(0);
-    ui->tableWidget->setItem(0, 0, new QTableWidgetItem(QTime::currentTime().toString()));
-    ui->tableWidget->setItem(0, 1, new QTableWidgetItem(event.id()));
-    ui->tableWidget->setItem(0, 2, new QTableWidgetItem(event.toString()));
+    ui->listWidget->insertItem(
+        0,
+        QString("[%1] %2").arg(QTime::currentTime().toString()).arg(event.toString())
+    );
 }
