@@ -4,12 +4,12 @@
 const char* RoomOpenEvent::ID = "room:open";
 
 RoomOpenEvent::RoomOpenEvent(const QJsonValue& data)
-    :AbstractEvent(data)
+    :RoomPlayersEvent(data)
 {
     Q_ASSERT(data.isObject());
     const QJsonObject room = data.toObject();
-    Q_ASSERT(room["name"].isString());
-    _name = room["name"].toString();
+    Q_ASSERT(room["players"].isDouble());
+    _game = room["players"].toInt();
 }
 
 RoomOpenEvent::~RoomOpenEvent()
@@ -22,8 +22,8 @@ QString RoomOpenEvent::id() const
     return ID;
 }
 
-QString RoomOpenEvent::name() const
+bool RoomOpenEvent::game() const
 {
-    return _name;
+    return _game;
 }
 

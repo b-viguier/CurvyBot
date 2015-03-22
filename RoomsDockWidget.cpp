@@ -4,6 +4,7 @@
 #include "CurvytronSocket.h"
 #include "Events/RoomOpenEvent.h"
 #include "Events/RoomFetchEvent.h"
+#include "Events/RoomCloseEvent.h"
 #include <QWebSocket>
 #include <QJsonObject>
 
@@ -15,6 +16,8 @@ RoomsDockWidget::RoomsDockWidget(CurvytronSocket& socket, QWidget *parent) :
 {
     ui->setupUi(this);
     _socket.registerListener<RoomOpenEvent>(*this, &RoomsDockWidget::onRoomOpen);
+    _socket.registerListener<RoomPlayersEvent>(*this, &RoomsDockWidget::onRoomPlayers);
+    _socket.registerListener<RoomCloseEvent>(*this, &RoomsDockWidget::onRoomClose);
     connect(&_socket.socket(), &QWebSocket::connected, this, &RoomsDockWidget::onSocketConnected);
 }
 
@@ -25,12 +28,49 @@ RoomsDockWidget::~RoomsDockWidget()
 
 void RoomsDockWidget::onRoomOpen(const RoomOpenEvent& event)
 {
-    ui->tableWidget->insertRow(0);
-    ui->tableWidget->setItem(0, 0, new QTableWidgetItem(event.name()));
+    int item_id = ui->roomsList->findData(event.name());
+    if(item_id >= 0) {
+        return;
+    }
+    ui->roomsList->addItem(
+        QString("%1 (%2)").arg(event.name()).arg(event.players()),
+        event.name()
+    );
+}
+
+void RoomsDockWidget::onRoomPlayers(const RoomPlayersEvent &event)
+{
+    int item_id = ui->roomsList->findData(event.name());
+    if(item_id < 0) {
+        return;
+    }
+    ui->roomsList->setItemText(
+        item_id,
+        QString("%1 (%2)").arg(event.name()).arg(event.players())
+    );
+}
+
+void RoomsDockWidget::onRoomClose(const RoomCloseEvent &event)
+{
+    int item_id = ui->roomsList->findData(event.name());
+    if(item_id < 0) {
+        return;
+    }
+    ui->roomsList->removeItem(item_id);
 }
 
 void RoomsDockWidget::onSocketConnected()
 {
     _socket.sendEvent(RoomFetchEvent());
+}
+
+void RoomsDockWidget::on_roomsList_currentIndexChanged(int)
+{
+    //TODO: load players list
+}
+
+void RoomsDockWidget::on_createButton_clicked()
+{
+    //TODO: create room, and select it
 }
 

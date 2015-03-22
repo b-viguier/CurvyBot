@@ -22,7 +22,9 @@ SOURCES += main.cpp \
     Events/AbstractEvent.cpp \
     Events/RoomOpenEvent.cpp \
     Events/RoomFetchEvent.cpp \
-    Events/RawEvent.cpp
+    Events/RawEvent.cpp \
+    Events/RoomPlayersEvent.cpp \
+    Events/RoomCloseEvent.cpp
 
 HEADERS  += \
     MainWindow.h \
@@ -37,7 +39,9 @@ HEADERS  += \
     Events/EventCommand.h \
     Events/RoomOpenEvent.h \
     Events/RoomFetchEvent.h \
-    Events/RawEvent.h
+    Events/RawEvent.h \
+    Events/RoomPlayersEvent.h \
+    Events/RoomCloseEvent.h
 
 FORMS    += \
     MainWindow.ui \

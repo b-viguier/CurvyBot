@@ -6,6 +6,8 @@
 class QJsonValue;
 class CurvytronSocket;
 class RoomOpenEvent;
+class RoomPlayersEvent;
+class RoomCloseEvent;
 
 namespace Ui {
 class RoomsDockWidget;
@@ -20,10 +22,16 @@ public:
     ~RoomsDockWidget();
 
 private slots:
-    void onRoomOpen(const RoomOpenEvent& event);
     void onSocketConnected();
 
+    void on_roomsList_currentIndexChanged(int);
+    void on_createButton_clicked();
+
 private:
+    void onRoomOpen(const RoomOpenEvent& event);
+    void onRoomPlayers(const RoomPlayersEvent& event);
+    void onRoomClose(const RoomCloseEvent& event);
+
     Ui::RoomsDockWidget *ui;
     CurvytronSocket& _socket;
 };

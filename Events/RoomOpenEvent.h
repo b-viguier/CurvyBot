@@ -1,9 +1,9 @@
 #ifndef ROOMOPENEVENT_H
 #define ROOMOPENEVENT_H
 
-#include "AbstractEvent.h"
+#include "RoomPlayersEvent.h"
 
-class RoomOpenEvent : public AbstractEvent
+class RoomOpenEvent : public RoomPlayersEvent
 {
 public:
     RoomOpenEvent(const QJsonValue& data);
@@ -12,11 +12,10 @@ public:
     static const char *ID;
 
     QString id() const;
-
-    QString name() const;
+    bool game() const;
 
 private:
-    QString _name;
+    bool _game;
 };
 
 #endif // ROOMOPENEVENT_H
