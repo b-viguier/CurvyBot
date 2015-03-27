@@ -4,11 +4,6 @@
 #include <QJsonDocument>
 #include <QJsonArray>
 
-namespace {
-
-const QString event_prefix = "evt/";
-
-}
 CurvytronSocket::CurvytronSocket(QWebSocket &socket)
     : QObject(&socket)
     , _socket(socket)
@@ -33,7 +28,7 @@ void CurvytronSocket::sendEvent(const AbstractEvent &event)
 {
     _socket.sendTextMessage(
         QString(QJsonDocument(
-            QJsonArray{QJsonArray{event_prefix + event.id(), event.data()}}
+            QJsonArray{QJsonArray{event.id(), event.data()}}
         ).toJson(QJsonDocument::Compact))
     );
     emit eventSent(event);
@@ -48,9 +43,8 @@ void CurvytronSocket::onSocketMessageReceived(const QString &message)
         auto json_array = msg.toArray();
         Q_ASSERT(json_array.size() == 2
             && json_array.first().isString()
-            && json_array.first().toString().startsWith(event_prefix)
         );
-        const QString event_id = json_array.first().toString().mid(event_prefix.size());
+        const QString event_id = json_array.first().toString();
         const QJsonValue event_data = json_array.last();
         const RawEvent raw_event(event_id, event_data);
 
