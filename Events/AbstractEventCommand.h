@@ -6,8 +6,6 @@ class AbstractEventCommand
 {
 public:
     virtual void execute(const Event&) = 0;
-private:
-    ~AbstractEventCommand() = default;
 };
 
 #endif // ABSTRACTEVENTCOMMAND
