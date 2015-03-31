@@ -1,23 +1,16 @@
 #ifndef ROOMCLOSEEVENT_H
 #define ROOMCLOSEEVENT_H
 
-#include "AbstractEvent.h"
+#include "JsonObjectEvent.h"
 
-class QJsonValue;
-
-class RoomCloseEvent : public AbstractEvent
-{
-public:
+struct RoomCloseFields {
     static const char ID[];
-
-    RoomCloseEvent(const QJsonValue&);
-    ~RoomCloseEvent();
-
-    QString id() const;
-    QString name() const;
-
-private:
-    QString _name;
+    static const char NAME[];
 };
+
+typedef JsonObjectEvent<
+    RoomCloseFields::ID,
+    JsonObjectField<RoomCloseFields::NAME, QString>
+> RoomCloseEvent;
 
 #endif // ROOMCLOSEEVENT_H

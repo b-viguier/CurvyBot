@@ -52,7 +52,7 @@ void RoomsDockWidget::onRoomPlayers(const RoomPlayersEvent &event)
 
 void RoomsDockWidget::onRoomClose(const RoomCloseEvent &event)
 {
-    int item_id = ui->roomsList->findData(event.name());
+    int item_id = ui->roomsList->findData(event.get<RoomCloseFields::NAME>());
     if(item_id < 0) {
         return;
     }

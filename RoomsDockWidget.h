@@ -7,7 +7,7 @@ class QJsonValue;
 class CurvytronSocket;
 class RoomOpenEvent;
 class RoomPlayersEvent;
-class RoomCloseEvent;
+#include <Events/RoomCloseEvent.h>
 
 namespace Ui {
 class RoomsDockWidget;
