@@ -5,8 +5,8 @@
 
 class QJsonValue;
 class CurvytronSocket;
-class RoomOpenEvent;
-class RoomPlayersEvent;
+#include <Events/RoomOpenEvent.h>
+#include <Events/RoomPlayersEvent.h>
 #include <Events/RoomCloseEvent.h>
 
 namespace Ui {

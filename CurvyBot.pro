@@ -20,10 +20,8 @@ SOURCES += main.cpp \
     CurvytronSocket.cpp \
     RoomsDockWidget.cpp \
     Events/AbstractEvent.cpp \
-    Events/RoomOpenEvent.cpp \
     Events/RoomFetchEvent.cpp \
     Events/RawEvent.cpp \
-    Events/RoomPlayersEvent.cpp \
     Json/JsonValue.cpp
 
 HEADERS  += \

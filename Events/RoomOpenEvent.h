@@ -1,21 +1,19 @@
 #ifndef ROOMOPENEVENT_H
 #define ROOMOPENEVENT_H
 
-#include "RoomPlayersEvent.h"
+#include "JsonObjectEvent.h"
+#include "EventField.h"
 
-class RoomOpenEvent : public RoomPlayersEvent
+namespace EventId
 {
-public:
-    RoomOpenEvent(const QJsonValue& data);
-    ~RoomOpenEvent();
+    constexpr const char ROOM_OPEN[] = "room:open";
+}
 
-    static const char *ID;
-
-    QString id() const;
-    bool game() const;
-
-private:
-    bool _game;
-};
+typedef JsonObjectEvent<
+    EventId::ROOM_OPEN,
+    JsonObjectField<EventField::NAME, QString>,
+    JsonObjectField<EventField::PLAYERS, int>,
+    JsonObjectField<EventField::GAME, bool>
+> RoomOpenEvent;
 
 #endif // ROOMOPENEVENT_H

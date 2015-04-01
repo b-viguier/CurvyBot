@@ -28,25 +28,25 @@ RoomsDockWidget::~RoomsDockWidget()
 
 void RoomsDockWidget::onRoomOpen(const RoomOpenEvent& event)
 {
-    int item_id = ui->roomsList->findData(event.name());
+    int item_id = ui->roomsList->findData(event.get<EventField::NAME>());
     if(item_id >= 0) {
         return;
     }
     ui->roomsList->addItem(
-        QString("%1 (%2)").arg(event.name()).arg(event.players()),
-        event.name()
+        QString("%1 (%2)").arg(event.get<EventField::NAME>()).arg(event.get<EventField::PLAYERS>()),
+        event.get<EventField::NAME>()
     );
 }
 
 void RoomsDockWidget::onRoomPlayers(const RoomPlayersEvent &event)
 {
-    int item_id = ui->roomsList->findData(event.name());
+    int item_id = ui->roomsList->findData(event.get<EventField::NAME>());
     if(item_id < 0) {
         return;
     }
     ui->roomsList->setItemText(
         item_id,
-        QString("%1 (%2)").arg(event.name()).arg(event.players())
+        QString("%1 (%2)").arg(event.get<EventField::NAME>()).arg(event.get<EventField::PLAYERS>())
     );
 }
 
