@@ -24,7 +24,6 @@ SOURCES += main.cpp \
     Events/RoomFetchEvent.cpp \
     Events/RawEvent.cpp \
     Events/RoomPlayersEvent.cpp \
-    Events/RoomCloseEvent.cpp \
     Json/JsonValue.cpp
 
 HEADERS  += \
@@ -46,7 +45,8 @@ HEADERS  += \
     Json/JsonValue.h \
     Json/JsonObjectField.h \
     Json/JsonObjectValue.h \
-    Events/JsonObjectEvent.h
+    Events/JsonObjectEvent.h \
+    Events/EventField.h
 
 FORMS    += \
     MainWindow.ui \

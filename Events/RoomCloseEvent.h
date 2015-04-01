@@ -2,15 +2,16 @@
 #define ROOMCLOSEEVENT_H
 
 #include "JsonObjectEvent.h"
+#include "EventField.h"
 
-struct RoomCloseFields {
-    static const char ID[];
-    static const char NAME[];
-};
+namespace EventId
+{
+    constexpr const char ROOM_CLOSE[] = "room:close";
+}
 
 typedef JsonObjectEvent<
-    RoomCloseFields::ID,
-    JsonObjectField<RoomCloseFields::NAME, QString>
+    EventId::ROOM_CLOSE,
+    JsonObjectField<EventField::NAME, QString>
 > RoomCloseEvent;
 
 #endif // ROOMCLOSEEVENT_H
