@@ -10,7 +10,7 @@ class JsonObjectEvent : public AbstractEvent
 public:
     static const char* ID;
 
-    JsonObjectEvent(const QJsonValue& data)
+    JsonObjectEvent(const QJsonValue& data = QJsonObject())
         : AbstractEvent(data)
         , _jsonObject(data.toObject())
     {
@@ -21,6 +21,14 @@ public:
     typename JsonObjectValue<Name, Fields...>::Type get() const
     {
         return JsonObjectValue<Name, Fields...>::get(_jsonObject);
+    }
+
+    template<const char* Name>
+    JsonObjectEvent<Id, Fields...>& set(const typename JsonObjectValue<Name, Fields...>::Type& value)
+    {
+        JsonObjectValue<Name, Fields...>::set(_jsonObject, value);
+        _data = _jsonObject;
+        return *this;
     }
 
     QString id() const
