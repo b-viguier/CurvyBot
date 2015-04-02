@@ -5,6 +5,7 @@
 #include "Events/RoomOpenEvent.h"
 #include "Events/RoomFetchEvent.h"
 #include "Events/RoomCloseEvent.h"
+#include "Events/RoomJoinRequest.h"
 #include <QWebSocket>
 #include <QJsonObject>
 
@@ -64,9 +65,13 @@ void RoomsDockWidget::onSocketConnected()
     _socket.sendEvent(RoomFetchEvent());
 }
 
-void RoomsDockWidget::on_roomsList_currentIndexChanged(int)
+void RoomsDockWidget::on_roomsList_currentIndexChanged(int index)
 {
-    //TODO: load players list
+    const QString room = ui->roomsList->itemData(index).toString();
+    RoomJoinRequest request;
+    request.set<EventField::NAME>(room);
+    QString test = request.get<EventField::NAME>();
+    _socket.sendRequest(request);
 }
 
 void RoomsDockWidget::on_createButton_clicked()

@@ -36,6 +36,7 @@ public:
 
 public slots:
     void sendEvent(const AbstractEvent& event);
+    void sendRequest(const AbstractEvent& event);
 
 signals:
     void eventIgnored(const AbstractEvent& event);

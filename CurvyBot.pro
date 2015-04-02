@@ -44,7 +44,8 @@ HEADERS  += \
     Json/JsonObjectField.h \
     Json/JsonObjectValue.h \
     Events/JsonObjectEvent.h \
-    Events/EventField.h
+    Events/EventField.h \
+    Events/RoomJoinRequest.h
 
 FORMS    += \
     MainWindow.ui \
